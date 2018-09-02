@@ -2,8 +2,8 @@
 import webpack from 'webpack';
 import path from 'path';
 
-// Path
-const PHATS = {
+// Paths
+const PATHS = {
 	index: path.join(__dirname, 'src/index'),
 	build: path.join(__dirname, '/dist'),
 	src: path.join(__dirname, 'src')
@@ -16,28 +16,29 @@ export default {
 		'webpack-hot-middleware/client?reload=true',
 		PATHS.index
 	],
-	output: [
+	output: {
 		path: PATHS.build,
 		publicPath: '/',
 		filename: 'bundle.js'
-	],
+	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoEmitOnErrorPlugins()
+		new webpack.NoEmitOnErrorsPlugin()
 	],
-	module: [
-		loaders: [{
+	module: {
+		rules: [{
 			test: /\.js?$/,
 			loaders: ['babel-loader'],
 			include: PATHS.src
 		},
 		{
-			test: /\.css)$/,
-			loaders: ['style-loader','css-loader']
+			test: /(\.css)$/,
+			loaders: ['style-loader', 'css-loader']
 		},
 		{
-			test: /\.svg?(\?v=\d+\.\d+\.\d+)?$/,
-			loaders: 'url-loared?limit=10000&mimetype=imge/svg+xml'			
-		}]
-	]
+			test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+			loader: 'url-loader?limit=10000&mimetype=image/svg+xml'			
+		}],
+		//mode: 'production'
+	}
 };

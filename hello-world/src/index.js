@@ -12,7 +12,6 @@ import AppRoutes from './routes';
 import './index.css';
 
 render(
-	//<App />,
 	<Router>
 		<AppRoutes />
 	</Router>,
